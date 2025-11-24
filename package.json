@@ -1,34 +1,33 @@
 {
-  "name": "trading-assistant",
+  "name": "voxia-maestro",
   "version": "1.0.0",
-  "description": "Asisten Trading & Sinyal Pasar Global - AI-powered trading analysis tool",
+  "description": "Asisten Trading & Sinyal Pasar Global - Landing page untuk Bali Trade Community by Voxia ID",
   "main": "index.html",
   "scripts": {
     "start": "python -m http.server 8000 || npx serve .",
     "dev": "python -m http.server 8000 || npx serve . -l 8000",
     "build": "echo 'No build process needed for static site'",
-    "deploy": "git add . && git commit -m 'Update deployment' && git push origin main"
+    "deploy": "git add . && git commit -m 'Update deployment' && git push origin master"
   },
   "keywords": [
     "trading",
-    "analysis",
-    "ai",
+    "landing-page",
+    "voxia-id",
+    "bali-trade-community",
+    "trading-assistant",
     "forex",
     "stocks",
     "commodities",
-    "technical-analysis",
-    "sentiment-analysis",
     "indonesia",
-    "idx",
-    "bali-trade-community"
+    "idx"
   ],
   "author": "Voxia ID",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/trading-assistant.git"
+    "url": "https://github.com/VOXIA-ID/VOXIA-MAESTRO.git"
   },
-  "homepage": "https://username.github.io/trading-assistant",
+  "homepage": "https://voxia-id.github.io/VOXIA-MAESTRO/",
   "devDependencies": {
     "serve": "^14.2.1"
   },

@@ -1,589 +1,381 @@
+// Trading Assistant - Simple & Direct Version
 class TradingAssistant {
     constructor() {
         this.initializeElements();
         this.bindEvents();
-        this.searchAPI = new GoogleSearchAPI();
-        this.aiAnalyzer = new AIAnalyzer();
+        this.initializeAnimations();
     }
 
     initializeElements() {
-        this.assetSymbolInput = document.getElementById('assetSymbol');
-        this.marketCategorySelect = document.getElementById('marketCategory');
-        this.analyzeBtn = document.getElementById('analyzeBtn');
-        this.loadingSection = document.getElementById('loadingSection');
-        this.resultsSection = document.getElementById('resultsSection');
+        // Navigation elements
+        this.backToTopBtn = document.getElementById('backToTop');
         
-        // Result elements
-        this.resultTitle = document.getElementById('resultTitle');
-        this.currentPrice = document.getElementById('currentPrice');
-        this.rsiValue = document.getElementById('rsiValue');
-        this.rsiStatus = document.getElementById('rsiStatus');
-        this.ma50Value = document.getElementById('ma50Value');
-        this.ma50Status = document.getElementById('ma50Status');
-        this.ma200Value = document.getElementById('ma200Value');
-        this.ma200Status = document.getElementById('ma200Status');
-        this.macdValue = document.getElementById('macdValue');
-        this.macdStatus = document.getElementById('macdStatus');
-        this.verdict = document.getElementById('verdict');
-        this.analysisText = document.getElementById('analysisText');
-        this.newsList = document.getElementById('newsList');
+        // Smooth scroll for anchor links
+        this.anchorLinks = document.querySelectorAll('a[href^="#"]');
     }
 
     bindEvents() {
-        this.analyzeBtn.addEventListener('click', () => this.handleAnalyze());
-        
-        // Allow Enter key to trigger analysis
-        this.assetSymbolInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.handleAnalyze();
-            }
-        });
-        
-        this.marketCategorySelect.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.handleAnalyze();
-            }
-        });
-    }
-
-    async handleAnalyze() {
-        const symbol = this.assetSymbolInput.value.trim();
-        const category = this.marketCategorySelect.value;
-
-        if (!symbol) {
-            this.showError('Mohon masukkan simbol aset atau nama komoditas');
-            return;
+        // Back to top button
+        if (this.backToTopBtn) {
+            window.addEventListener('scroll', () => this.toggleBackToTop());
+            this.backToTopBtn.addEventListener('click', () => this.scrollToTop());
         }
 
-        if (!category) {
-            this.showError('Mohon pilih kategori pasar');
-            return;
-        }
-
-        try {
-            this.showLoading();
-            const analysisData = await this.performAnalysis(symbol, category);
-            this.displayResults(analysisData, symbol);
-        } catch (error) {
-            console.error('Analysis error:', error);
-            this.showError('Terjadi kesalahan saat melakukan analisis. Silakan coba lagi.');
-        } finally {
-            this.hideLoading();
-        }
-    }
-
-    showLoading() {
-        this.loadingSection.style.display = 'block';
-        this.resultsSection.style.display = 'none';
-    }
-
-    hideLoading() {
-        this.loadingSection.style.display = 'none';
-    }
-
-    showError(message) {
-        alert(message);
-        this.hideLoading();
-    }
-
-    async performAnalysis(symbol, category) {
-        try {
-            // Get real-time data from search API
-            const searchData = await this.searchAPI.searchRealTimeData(symbol, category);
-            
-            // Perform AI analysis
-            const aiAnalysis = await this.aiAnalyzer.analyzeMarketData(searchData, symbol, category);
-            
-            // Combine data for display
-            return {
-                symbol: symbol.toUpperCase(),
-                category: category,
-                currentPrice: searchData.currentPrice.price,
-                rsi: searchData.technicalIndicators.rsi.value,
-                ma50: searchData.technicalIndicators.ma50.value,
-                ma200: searchData.technicalIndicators.ma200.value,
-                macd: searchData.technicalIndicators.macd.value,
-                newsSentiment: searchData.newsSentiment,
-                ...aiAnalysis
-            };
-        } catch (error) {
-            console.error('Analysis error:', error);
-            // Fallback to mock data if search fails
-            return this.getFallbackAnalysis(symbol, category);
-        }
-    }
-
-    async getFallbackAnalysis(symbol, category) {
-        // Simulate API call delay
-        await this.delay(2000);
-
-        // Generate mock data based on symbol and category
-        const mockData = this.generateMockData(symbol, category);
-        
-        // Perform AI analysis
-        const analysis = this.analyzeSignals(mockData);
-        
-        return {
-            ...mockData,
-            ...analysis
-        };
-    }
-
-    generateMockData(symbol, category) {
-        // Generate realistic mock data
-        const basePrice = this.getBasePrice(symbol, category);
-        const currentPrice = basePrice + (Math.random() - 0.5) * basePrice * 0.1;
-        
-        const rsi = 20 + Math.random() * 60; // RSI between 20-80
-        const ma50 = currentPrice + (Math.random() - 0.5) * currentPrice * 0.05;
-        const ma200 = currentPrice + (Math.random() - 0.5) * currentPrice * 0.1;
-        
-        // MACD calculation
-        const macdLine = (Math.random() - 0.5) * 2;
-        const signalLine = (Math.random() - 0.5) * 2;
-        const histogram = macdLine - signalLine;
-        
-        // Generate news sentiment
-        const newsSentiment = this.generateNewsSentiment(symbol, category);
-
-        return {
-            symbol: symbol.toUpperCase(),
-            category: category,
-            currentPrice: this.formatPrice(currentPrice, category),
-            rsi: rsi.toFixed(2),
-            ma50: this.formatPrice(ma50, category),
-            ma200: this.formatPrice(ma200, category),
-            macd: `${macdLine.toFixed(3)}`,
-            macdHistogram: histogram.toFixed(3),
-            newsSentiment: newsSentiment
-        };
-    }
-
-    getBasePrice(symbol, category) {
-        // Return realistic base prices for different asset types
-        if (category === 'idx') {
-            // Indonesian stocks
-            const stockPrices = {
-                'BBCA.JK': 8500,
-                'TLKM.JK': 3500,
-                'BBRI.JK': 4500,
-                'UNVR.JK': 4000
-            };
-            return stockPrices[symbol.toUpperCase()] || 1000 + Math.random() * 9000;
-        } else if (category === 'global') {
-            // Global stocks
-            const stockPrices = {
-                'NVDA': 500,
-                'AAPL': 180,
-                'GOOGL': 140,
-                'MSFT': 380
-            };
-            return stockPrices[symbol.toUpperCase()] || 50 + Math.random() * 500;
-        } else if (category === 'forex') {
-            // Forex pairs
-            const forexPrices = {
-                'XAU/USD': 2000,
-                'EUR/USD': 1.08,
-                'GBP/USD': 1.27,
-                'USD/JPY': 148
-            };
-            return forexPrices[symbol.toUpperCase()] || 1 + Math.random() * 100;
-        } else if (category === 'hard-commodities') {
-            // Hard commodities
-            if (symbol.toLowerCase().includes('gold') || symbol.toLowerCase().includes('xau')) {
-                return 2000 + Math.random() * 200;
-            } else if (symbol.toLowerCase().includes('oil')) {
-                return 70 + Math.random() * 30;
-            }
-            return 100 + Math.random() * 900;
-        } else if (category === 'soft-commodities') {
-            // Soft commodities
-            if (symbol.toLowerCase().includes('cpo') || symbol.toLowerCase().includes('sawit')) {
-                return 3500 + Math.random() * 1000;
-            } else if (symbol.toLowerCase().includes('gandum') || symbol.toLowerCase().includes('wheat')) {
-                return 200 + Math.random() * 100;
-            } else if (symbol.toLowerCase().includes('jagung') || symbol.toLowerCase().includes('corn')) {
-                return 150 + Math.random() * 50;
-            }
-            return 100 + Math.random() * 400;
-        }
-        
-        return 100 + Math.random() * 900;
-    }
-
-    formatPrice(price, category) {
-        if (category === 'forex') {
-            return price.toFixed(4);
-        } else if (category === 'idx' || category === 'global') {
-            return price.toFixed(0);
-        } else {
-            return price.toFixed(2);
-        }
-    }
-
-    generateNewsSentiment(symbol, category) {
-        const newsTemplates = {
-            positive: [
-                `${symbol} mencatat kenaikan signifikan didukung sentimen positif pasar`,
-                `Analisis fundamental menunjukkan prospek pertumbuhan kuat untuk ${symbol}`,
-                `Investor asing meningkatkan kepemilikan saham ${symbol}`
-            ],
-            negative: [
-                `${symbol} tertekan oleh kekhawatiran global dan penurunan permintaan`,
-                `Laporan keuangan terakhir ${symbol} menunjukkan perlambatan pertumbuhan`,
-                `Sentimen risiko tinggi mempengaruhi pergerakan ${symbol}`
-            ],
-            neutral: [
-                `${symbol} bergerak sideways menunggu katalis baru`,
-                `Pasar sedang mengkalkulasi dampak berita terbaru pada ${symbol}`,
-                `Analis teknikal menunggu konfirmasi breakout untuk ${symbol}`
-            ]
-        };
-
-        const sentiments = ['positive', 'negative', 'neutral'];
-        const selectedSentiments = [];
-        
-        for (let i = 0; i < 3; i++) {
-            const sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
-            const newsList = newsTemplates[sentiment];
-            const news = newsList[Math.floor(Math.random() * newsList.length)];
-            selectedSentiments.push({ text: news, sentiment: sentiment });
-        }
-
-        return selectedSentiments;
-    }
-
-    analyzeSignals(data) {
-        const rsi = parseFloat(data.rsi);
-        const currentPrice = parseFloat(data.currentPrice.replace(/,/g, ''));
-        const ma50 = parseFloat(data.ma50.replace(/,/g, ''));
-        const ma200 = parseFloat(data.ma200.replace(/,/g, ''));
-        const macdHistogram = parseFloat(data.macdHistogram);
-
-        // Count positive and negative signals
-        let buySignals = 0;
-        let sellSignals = 0;
-
-        // RSI Analysis
-        if (rsi < 30) {
-            buySignals += 2; // Strong buy signal
-        } else if (rsi < 40) {
-            buySignals += 1; // Buy signal
-        } else if (rsi > 70) {
-            sellSignals += 2; // Strong sell signal
-        } else if (rsi > 60) {
-            sellSignals += 1; // Sell signal
-        }
-
-        // Moving Average Analysis
-        if (currentPrice > ma50 && ma50 > ma200) {
-            buySignals += 2; // Strong uptrend
-        } else if (currentPrice > ma50) {
-            buySignals += 1; // Uptrend
-        } else if (currentPrice < ma50 && ma50 < ma200) {
-            sellSignals += 2; // Strong downtrend
-        } else if (currentPrice < ma50) {
-            sellSignals += 1; // Downtrend
-        }
-
-        // MACD Analysis
-        if (macdHistogram > 0.1) {
-            buySignals += 1; // Bullish MACD
-        } else if (macdHistogram < -0.1) {
-            sellSignals += 1; // Bearish MACD
-        }
-
-        // News Sentiment Analysis
-        const positiveNews = data.newsSentiment.filter(n => n.sentiment === 'positive').length;
-        const negativeNews = data.newsSentiment.filter(n => n.sentiment === 'negative').length;
-        
-        if (positiveNews > negativeNews) {
-            buySignals += 1;
-        } else if (negativeNews > positiveNews) {
-            sellSignals += 1;
-        }
-
-        // Determine verdict
-        let verdict, verdictClass, analysis;
-
-        if (buySignals >= 5) {
-            verdict = 'STRONG BUY';
-            verdictClass = 'strong-buy';
-        } else if (buySignals >= 3) {
-            verdict = 'BUY';
-            verdictClass = 'buy';
-        } else if (sellSignals >= 5) {
-            verdict = 'STRONG SELL';
-            verdictClass = 'strong-sell';
-        } else if (sellSignals >= 3) {
-            verdict = 'SELL';
-            verdictClass = 'sell';
-        } else {
-            verdict = 'NEUTRAL';
-            verdictClass = 'neutral';
-        }
-
-        // Generate analysis text
-        analysis = this.generateAnalysis(data, buySignals, sellSignals, verdict);
-
-        return {
-            verdict,
-            verdictClass,
-            analysis,
-            rsiStatus: this.getRSIStatus(rsi),
-            ma50Status: this.getMAStatus(currentPrice, ma50),
-            ma200Status: this.getMAStatus(currentPrice, ma200),
-            macdStatus: this.getMACDStatus(macdHistogram)
-        };
-    }
-
-    getRSIStatus(rsi) {
-        if (rsi < 30) return { text: 'Oversold (Jenuh Jual)', class: 'status-positive' };
-        if (rsi < 40) return { text: 'Mendekati Oversold', class: 'status-positive' };
-        if (rsi > 70) return { text: 'Overbought (Jenuh Beli)', class: 'status-negative' };
-        if (rsi > 60) return { text: 'Mendekati Overbought', class: 'status-negative' };
-        return { text: 'Netral', class: 'status-neutral' };
-    }
-
-    getMAStatus(currentPrice, ma) {
-        if (currentPrice > ma * 1.02) return { text: 'Di Atas MA (Bullish)', class: 'status-positive' };
-        if (currentPrice < ma * 0.98) return { text: 'Di Bawah MA (Bearish)', class: 'status-negative' };
-        return { text: 'Dekati MA', class: 'status-neutral' };
-    }
-
-    getMACDStatus(histogram) {
-        if (histogram > 0.1) return { text: 'Bullish (Golden Cross)', class: 'status-positive' };
-        if (histogram < -0.1) return { text: 'Bearish (Death Cross)', class: 'status-negative' };
-        return { text: 'Netral', class: 'status-neutral' };
-    }
-
-    generateAnalysis(data, buySignals, sellSignals, verdict) {
-        const rsi = parseFloat(data.rsi);
-        const positiveNews = data.newsSentiment.filter(n => n.sentiment === 'positive').length;
-        const negativeNews = data.newsSentiment.filter(n => n.sentiment === 'negative').length;
-
-        let analysis = '';
-
-        if (verdict === 'STRONG BUY' || verdict === 'BUY') {
-            analysis = `Berdasarkan analisis teknikal dan sentimen pasar, ${data.symbol} menunjukkan sinyal beli yang kuat. `;
-            analysis += `RSI berada di level ${rsi.toFixed(1)}, mengindikasikan adanya momentum beli yang masih terjaga. `;
-            
-            if (positiveNews > negativeNews) {
-                analysis += `Sentimen berita yang positif juga mendukung potensi kenaikan harga lebih lanjut. `;
-            }
-            
-            analysis += `Investor disarankan untuk mempertimbangkan posisi beli dengan target profit yang wajar dan selalu menerapkan manajemen risiko yang tepat.`;
-        } else if (verdict === 'STRONG SELL' || verdict === 'SELL') {
-            analysis = `Analisis teknikal menunjukkan sinyal jual untuk ${data.symbol}. `;
-            analysis += `RSI berada di level ${rsi.toFixed(1)}, mengindikasikan adanya potensi koreksi atau penurunan harga. `;
-            
-            if (negativeNews > positiveNews) {
-                analysis += `Sentimen berita yang negatif juga memberikan tekanan tambahan pada pergerakan harga. `;
-            }
-            
-            analysis += `Investor yang memiliki posisi beli disarankan untuk mempertimbangkan taking profit atau cut loss, sementara investor baru sebaiknya menunggu konfirmasi pembalikan tren.`;
-        } else {
-            analysis = `${data.symbol} saat ini berada dalam kondisi netral dengan sinyal yang campur aduk antara beli dan jual. `;
-            analysis += `RSI di level ${rsi.toFixed(1)} menunjukkan bahwa aset tidak dalam kondisi ekstrem jenuh beli maupun jenuh jual. `;
-            
-            analysis += `Sentimen berita juga cenderung seimbang, sehingga disarankan untuk menunggu konfirmasi yang lebih jelas sebelum mengambil keputusan trading. `;
-            analysis += `Monitor level support dan resistance kunci untuk menentukan arah pergerakan selanjutnya.`;
-        }
-
-        return analysis;
-    }
-
-    displayResults(data, symbol) {
-        // Update title
-        this.resultTitle.textContent = `Analisis Sinyal untuk ${data.symbol}`;
-        
-        // Update price
-        this.currentPrice.textContent = data.currentPrice;
-        
-        // Update indicators
-        this.rsiValue.textContent = data.rsi;
-        this.rsiStatus.textContent = data.rsiStatus.text;
-        this.rsiStatus.className = data.rsiStatus.class;
-        
-        this.ma50Value.textContent = data.ma50;
-        this.ma50Status.textContent = data.ma50Status.text;
-        this.ma50Status.className = data.ma50Status.class;
-        
-        this.ma200Value.textContent = data.ma200;
-        this.ma200Status.textContent = data.ma200Status.text;
-        this.ma200Status.className = data.ma200Status.class;
-        
-        this.macdValue.textContent = data.macd;
-        this.macdStatus.textContent = data.macdStatus.text;
-        this.macdStatus.className = data.macdStatus.class;
-        
-        // Update verdict
-        this.verdict.textContent = data.verdict;
-        this.verdict.className = `verdict ${data.verdictClass}`;
-        
-        // Update analysis
-        this.analysisText.textContent = data.analysis;
-        
-        // Update news
-        this.newsList.innerHTML = '';
-        data.newsSentiment.forEach(news => {
-            const li = document.createElement('li');
-            li.className = news.sentiment;
-            li.textContent = news.text || news.title || news.snippet;
-            this.newsList.appendChild(li);
+        // Smooth scrolling for anchor links
+        this.anchorLinks.forEach(link => {
+            link.addEventListener('click', (e) => this.handleSmoothScroll(e));
         });
 
-        // Update additional analysis
-        this.updateAdditionalAnalysis(data);
+        // Add hover effects to cards
+        this.addCardHoverEffects();
         
-        // Update recommendations
-        this.updateRecommendations(data);
-        
-        // Show results
-        this.resultsSection.style.display = 'block';
-        
-        // Scroll to results
-        this.resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Initialize intersection observer for animations
+        this.initializeIntersectionObserver();
     }
 
-    updateAdditionalAnalysis(data) {
-        // Update risk level
-        const riskLevel = document.getElementById('riskLevel');
-        if (data.riskLevel) {
-            riskLevel.textContent = this.formatRiskLevel(data.riskLevel);
-            riskLevel.className = `risk-indicator ${data.riskLevel}`;
-        }
+    initializeAnimations() {
+        // Add entrance animations to elements
+        this.animateOnScroll();
+        
+        // Add parallax effect to hero section
+        this.addParallaxEffect();
+    }
 
-        // Update confidence level
-        const confidenceLevel = document.getElementById('confidenceLevel');
-        if (data.confidence) {
-            confidenceLevel.textContent = this.formatConfidence(data.confidence);
-            confidenceLevel.className = `confidence-indicator ${data.confidence}`;
-        }
-
-        // Update time horizon
-        const timeHorizon = document.getElementById('timeHorizon');
-        if (data.timeHorizon) {
-            timeHorizon.textContent = this.formatTimeHorizon(data.timeHorizon);
-            timeHorizon.className = 'time-horizon-indicator';
-        }
-
-        // Update analysis score
-        const analysisScore = document.getElementById('analysisScore');
-        if (data.score !== undefined) {
-            analysisScore.textContent = this.formatScore(data.score);
-            analysisScore.className = `score-indicator ${data.score > 0.3 ? 'positive' : data.score < -0.3 ? 'negative' : 'neutral'}`;
+    toggleBackToTop() {
+        if (window.pageYOffset > 300) {
+            this.backToTopBtn.classList.add('visible');
+        } else {
+            this.backToTopBtn.classList.remove('visible');
         }
     }
 
-    updateRecommendations(data) {
-        const recommendationsList = document.getElementById('recommendationsList');
-        recommendationsList.innerHTML = '';
+    scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
-        if (data.recommendations && data.recommendations.length > 0) {
-            const ul = document.createElement('ul');
-            data.recommendations.forEach(recommendation => {
-                const li = document.createElement('li');
-                li.textContent = recommendation;
-                ul.appendChild(li);
+    handleSmoothScroll(e) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const offsetTop = targetSection.offsetTop - 80; // Account for sticky header
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
             });
-            recommendationsList.appendChild(ul);
-        } else {
-            recommendationsList.innerHTML = '<p>Tidak ada rekomendasi spesifik untuk saat ini.</p>';
         }
     }
 
-    formatRiskLevel(riskLevel) {
-        const riskMap = {
-            'low': 'Rendah 🟢',
-            'medium': 'Sedang 🟡',
-            'high': 'Tinggi 🟠',
-            'very_high': 'Sangat Tinggi 🔴'
+    addCardHoverEffects() {
+        const cards = document.querySelectorAll('.feature-card, .market-card, .testimonial-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+
+    initializeIntersectionObserver() {
+        const options = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
-        return riskMap[riskLevel] || riskLevel;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, options);
+
+        // Observe all cards and sections
+        const elementsToObserve = document.querySelectorAll(
+            '.feature-card, .market-card, .testimonial-card, .step'
+        );
+        
+        elementsToObserve.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
     }
 
-    formatConfidence(confidence) {
-        const confidenceMap = {
-            'high': 'Tinggi ✅',
-            'medium': 'Sedang ⚠️',
-            'low': 'Rendah ❌'
+    animateOnScroll() {
+        // Add stagger animation to hero stats
+        const stats = document.querySelectorAll('.stat');
+        stats.forEach((stat, index) => {
+            setTimeout(() => {
+                stat.style.opacity = '1';
+                stat.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+
+        // Animate hero CTA buttons
+        const ctaButtons = document.querySelectorAll('.hero-cta a');
+        ctaButtons.forEach((btn, index) => {
+            setTimeout(() => {
+                btn.style.opacity = '1';
+                btn.style.transform = 'translateY(0)';
+            }, 1000 + (index * 200));
+        });
+    }
+
+    addParallaxEffect() {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    }
+
+    // Utility functions
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
         };
-        return confidenceMap[confidence] || confidence;
     }
 
-    formatTimeHorizon(timeHorizon) {
-        const horizonMap = {
-            'short_term': 'Jangka Pendek',
-            'short_to_medium_term': 'Jangka Pendek-Menengah',
-            'medium_to_long_term': 'Jangka Menengah-Panjang'
-        };
-        return horizonMap[timeHorizon] || timeHorizon;
+    // Add typing effect to hero title
+    addTypingEffect() {
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            const text = heroTitle.textContent;
+            heroTitle.textContent = '';
+            heroTitle.style.borderRight = '3px solid #fbbf24';
+            
+            let index = 0;
+            const typeWriter = () => {
+                if (index < text.length) {
+                    heroTitle.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                } else {
+                    heroTitle.style.borderRight = 'none';
+                }
+            };
+            
+            setTimeout(typeWriter, 500);
+        }
     }
 
-    formatScore(score) {
-        const scoreValue = (score * 100).toFixed(1);
-        const sign = score > 0 ? '+' : '';
-        return `${sign}${scoreValue}%`;
+    // Add counter animation for stats
+    animateCounters() {
+        const counters = document.querySelectorAll('.stat-number');
+        
+        counters.forEach(counter => {
+            const target = counter.textContent;
+            const isNumber = /^\d+$/.test(target);
+            
+            if (isNumber) {
+                const targetNum = parseInt(target);
+                let current = 0;
+                const increment = targetNum / 50;
+                
+                const updateCounter = () => {
+                    if (current < targetNum) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 30);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            }
+        });
     }
 
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    // Add ripple effect to buttons
+    addRippleEffect() {
+        const buttons = document.querySelectorAll('.cta-primary, .cta-secondary');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    }
+
+    // Initialize all effects when DOM is loaded
+    initializeAllEffects() {
+        this.addTypingEffect();
+        this.animateCounters();
+        this.addRippleEffect();
+    }
+
+    // Track user interactions (optional analytics)
+    trackInteraction(action, element) {
+        // Simple tracking for analytics
+        console.log(`User ${action}:`, element);
+        
+        // You can add actual analytics here
+        // gtag('event', action, { 'element': element });
+    }
+
+    // Add keyboard navigation
+    addKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            // Press 'T' to scroll to top
+            if (e.key === 't' || e.key === 'T') {
+                this.scrollToTop();
+            }
+            
+            // Press 'Escape' to close any modals (if added later)
+            if (e.key === 'Escape') {
+                // Handle modal closing
+            }
+        });
+    }
+
+    // Performance optimization
+    optimizeImages() {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.loading = 'lazy';
+        });
+    }
+
+    // Add loading states
+    addLoadingStates() {
+        const buttons = document.querySelectorAll('a[target="_blank"]');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('loading');
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                }, 2000);
+            });
+        });
     }
 }
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new TradingAssistant();
+    const app = new TradingAssistant();
+    
+    // Initialize all effects after a short delay
+    setTimeout(() => {
+        app.initializeAllEffects();
+        app.addKeyboardNavigation();
+        app.optimizeImages();
+        app.addLoadingStates();
+    }, 100);
+    
+    // Add loading complete class to body
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 500);
 });
 
-// Add some utility functions for better user experience
-document.addEventListener('DOMContentLoaded', () => {
-    // Add input validation
-    const assetInput = document.getElementById('assetSymbol');
-    const categorySelect = document.getElementById('marketCategory');
+// Add CSS for ripple effect
+const style = document.createElement('style');
+style.textContent = `
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s ease-out;
+        pointer-events: none;
+    }
     
-    // Auto-format some common symbols
-    assetInput.addEventListener('blur', function() {
-        let value = this.value.trim().toUpperCase();
-        
-        // Auto-format Indonesian stocks
-        if (value && !value.includes('.') && !value.includes('/') && !value.includes(' ')) {
-            // Check if it might be an Indonesian stock
-            const commonIndonesianStocks = ['BBCA', 'TLKM', 'BBRI', 'UNVR', 'BMRI', 'ASII', 'INDF', 'KLBF'];
-            if (commonIndonesianStocks.includes(value) || categorySelect.value === 'idx') {
-                value += '.JK';
-                this.value = value;
-            }
+    @keyframes ripple-animation {
+        to {
+            transform: scale(4);
+            opacity: 0;
         }
-    });
+    }
     
-    // Add example suggestions
-    const examples = [
-        { symbol: 'BBCA.JK', category: 'idx' },
-        { symbol: 'NVDA', category: 'global' },
-        { symbol: 'XAU/USD', category: 'forex' },
-        { symbol: 'Minyak Sawit (CPO)', category: 'soft-commodities' }
-    ];
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+    }
     
-    // Add quick fill buttons (optional enhancement)
-    const inputSection = document.querySelector('.input-section');
-    const quickExamples = document.createElement('div');
-    quickExamples.className = 'quick-examples';
-    quickExamples.innerHTML = '<p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: #6b7280;">Contoh cepat:</p>';
+    .loaded {
+        overflow-x: hidden;
+    }
     
-    examples.forEach(example => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'example-btn';
-        btn.textContent = example.symbol;
-        btn.style.cssText = 'margin: 0.25rem; padding: 0.25rem 0.5rem; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px; cursor: pointer; font-size: 0.8rem;';
-        btn.addEventListener('click', () => {
-            assetInput.value = example.symbol;
-            categorySelect.value = example.category;
-        });
-        quickExamples.appendChild(btn);
-    });
+    .hero-title {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 3s steps(40, end);
+    }
     
-    inputSection.appendChild(quickExamples);
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    
+    .stat {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .hero-cta a {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+`;
+document.head.appendChild(style);
+
+// Add smooth reveal for sections
+window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+});
+
+// Preload critical resources
+window.addEventListener('DOMContentLoaded', () => {
+    // Preload font awesome
+    const fontAwesome = document.createElement('link');
+    fontAwesome.rel = 'preload';
+    fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    fontAwesome.as = 'style';
+    document.head.appendChild(fontAwesome);
+    
+    // Preload Google Fonts
+    const googleFonts = document.createElement('link');
+    googleFonts.rel = 'preload';
+    googleFonts.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap';
+    googleFonts.as = 'style';
+    document.head.appendChild(googleFonts);
 });

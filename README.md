@@ -1,193 +1,188 @@
-# Asisten Trading & Sinyal Pasar Global
+# VOXIA MAESTRO - Trading Assistant Landing Page
 
-Website aplikasi trading cerdas yang bertindak sebagai "Senior Analis Teknikal & Fundamental" untuk membantu trader mengambil keputusan Open Posisi. Aplikasi ini mencakup pasar Saham (Indonesia/IDX, AS, Eropa, Asia), Forex, Emas, dan Komoditas Lunak (Soft Commodities).
+Landing page modern untuk **Asisten Trading & Sinyal Pasar Global** yang dipersembahkan oleh **Voxia ID** untuk **Bali Trade Community**.
 
-## 🚀 Fitur Utama
+## 🚀 Tentang Project
 
-### 📊 Analisis Teknikal Komprehensif
-- **RSI (Relative Strength Index)**: Deteksi kondisi Overbought/Oversold
-- **Moving Average (MA 50 & MA 200)**: Identifikasi tren dan support/resistance
-- **MACD**: Deteksi sinyal Golden Cross dan Death Cross
-- **Volume Analysis**: Konfirmasi kekuatan pergerakan harga
+Website ini adalah landing page yang mengarahkan pengguna ke aplikasi trading cerdas yang sudah ada di Google Opal. Fokus utama adalah memberikan informasi lengkap tentang fitur-fitur aplikasi trading dengan design yang menarik dan profesional.
 
-### 📰 Sentimen Berita Real-Time
-- Pencarian berita terkini terkait aset
-- Analisis sentimen (Positif/Negatif/Netral)
-- Integrasi dengan sumber berita terpercaya
+## ✨ Fitur Landing Page
 
-### 🤖 Analisis AI Cerdas
-- **Sinyal BELI**: RSI < 30 + harga di support + sentimen positif
-- **Sinyal JUAL**: RSI > 70 + harga di resistance + sentimen negatif
-- **Verdict**: STRONG BUY, BUY, NEUTRAL, SELL, STRONG SELL
-- **Tingkat Keyakinan**: High, Medium, Low
-- **Manajemen Risiko**: Assess tingkat risiko secara otomatis
+### 🎨 **Modern Design**
+- Gradient backgrounds yang menarik
+- Animasi smooth dan interaktif
+- Fully responsive untuk semua device
+- Professional typography dengan Google Fonts
 
-### 🌈 Coverage Pasar Lengkap
-- **Saham Indonesia (IDX)**: BBCA.JK, TLKM.JK, BBRI.JK, dll
-- **Saham Global**: NVDA, AAPL, GOOGL, MSFT, dll
-- **Forex & Crypto**: XAU/USD, EUR/USD, GBP/USD, dll
-- **Komoditas Hard**: Emas, Minyak (WTI/Brent)
-- **Komoditas Soft**: CPO, Gandum, Jagung (CBOT)
+### 📱 **User Experience**
+- Hero section yang impactful
+- Informasi fitur yang jelas
+- Testimoni dari trader
+- Call-to-action yang jelas ke aplikasi
 
-## 🛠️ Teknologi yang Digunakan
+### 🎯 **Content Sections**
+- **Hero**: Pengenalan aplikasi dengan CTA utama
+- **Features**: Fitur-fitur unggulan aplikasi
+- **Markets**: Cakupan pasar yang lengkap
+- **How It Works**: Cara penggunaan aplikasi
+- **Testimonials**: Testimoni pengguna
+- **CTA Section**: Call-to-action final
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: CSS Grid, Flexbox, CSS Variables
-- **Icons**: Font Awesome 6
-- **Typography**: Google Fonts (Inter)
-- **API Integration**: Google Search API (simulated)
-- **AI Engine**: Custom JavaScript AI Analyzer
+### 🔗 **Direct Integration**
+- Link langsung ke aplikasi Opal Google
+- Contact information yang lengkap
+- Social media integration ready
+
+## 🛠️ Teknologi
+
+- **HTML5**: Semantic markup yang SEO-friendly
+- **CSS3**: Modern styling dengan animations
+- **JavaScript ES6+**: Interactive features
+- **Font Awesome 6**: Professional icons
+- **Google Fonts**: Typography yang optimal
 
 ## 📱 Responsive Design
-- Mobile-first approach
-- Optimized untuk desktop, tablet, dan mobile
-- Smooth animations dan transitions
-- Modern gradient backgrounds
 
-## 🎯 Cara Penggunaan
+- **Mobile-first approach**
+- **Tablet optimized**
+- **Desktop enhanced**
+- **Touch-friendly interactions**
 
-1. **Input Aset**: Masukkan simbol saham atau nama komoditas
-2. **Pilih Kategori**: Pilih kategori pasar yang sesuai
-3. **Analisis**: Klik tombol "Analisis Sekarang"
-4. **Hasil**: Lihat hasil analisis lengkap dengan rekomendasi
+## 🚀 Deployment
 
-## 📈 Output Analisis
+### GitHub Pages Setup
 
-### 📊 Indikator Teknikal
-- Tabel lengkap dengan nilai dan status setiap indikator
-- Color-coded untuk kemudahan interpretasi
-- Real-time price updates
+1. **Repository**: `https://github.com/VOXIA-ID/VOXIA-MAESTRO`
+2. **Automatic Deployment**: GitHub Actions workflow
+3. **Live URL**: `https://voxia-id.github.io/VOXIA-MAESTRO/`
 
-### ⚖️ Verdict & Rekomendasi
-- Keputusan trading yang jelas (BUY/SELL/NEUTRAL)
-- Alasan analisis yang mendalam
-- Rekomendasi manajemen risiko
-- Target horizon waktu
+### Manual Deployment
 
-### 📰 Sentimen Pasar
-- 3 berita terkini dengan analisis sentimen
-- Sumber berita terpercaya
-- Timestamp untuk relevansi waktu
-
-### 🔍 Analisis Lanjutan
-- Tingkat risiko (Low/Medium/High/Very High)
-- Tingkat keyakinan analisis
-- Skor analisis kuantitatif
-- Rekomendasi trading spesifik
-
-## 🌐 Deployment ke GitHub Pages
-
-### Prasyarat
-- Akun GitHub
-- Repository untuk project
-
-### Langkah Deployment
-
-1. **Clone Repository**
 ```bash
-git clone https://github.com/username/trading-assistant.git
-cd trading-assistant
-```
+# Clone repository
+git clone https://github.com/VOXIA-ID/VOXIA-MAESTRO.git
+cd VOXIA-MAESTRO
 
-2. **Add Files ke Repository**
-```bash
+# Make changes
 git add .
-git commit -m "Initial commit - Trading Assistant App"
-git push origin main
+git commit -m "Update landing page"
+git push origin master
 ```
 
-3. **Enable GitHub Pages**
-- Buka repository di GitHub
-- Go to Settings → Pages
-- Source: Deploy from a branch
-- Branch: main / (root)
-- Save
+## 🎨 Design System
 
-4. **Access Website**
-- Website akan tersedia di: `https://username.github.io/trading-assistant/`
+### Color Palette
+- **Primary**: `#2563eb` (Blue)
+- **Secondary**: `#1e40af` (Dark Blue)
+- **Accent**: `#3b82f6` (Light Blue)
+- **Success**: `#10b981` (Green)
+- **Warning**: `#f59e0b` (Amber)
+- **Danger**: `#ef4444` (Red)
 
-### Custom Domain (Optional)
-Tambahkan file `CNAME` di root directory:
-```
-yourdomain.com
-```
+### Typography
+- **Font Family**: Inter (Google Fonts)
+- **Weights**: 300, 400, 500, 600, 700, 800, 900
+- **Headings**: Bold dengan gradient effects
 
-## 🎨 Branding
+### Components
+- **Cards**: Shadow effects dengan hover animations
+- **Buttons**: Gradient backgrounds dengan ripple effects
+- **Navigation**: Sticky header dengan blur effect
+- **Footer**: Comprehensive dengan multiple sections
 
-### Voxia ID Integration
-- Powered by Voxia ID branding
-- Link ke https://voxia.id/
-- Professional color scheme
+## 📊 Performance
 
-### Bali Trade Community
-- Dedicated untuk Bali Trade Community
-- Community-focused features
-- Local market insights
+- **Optimized Images**: Lazy loading
+- **Minified Assets**: CSS dan JavaScript
+- **Font Optimization**: Preloading critical fonts
+- **Smooth Animations**: Hardware accelerated
+- **SEO Friendly**: Meta tags lengkap
 
-## 🔧 Konfigurasi
+## 🔧 Customization
 
-### Environment Variables
-Untuk production deployment dengan real API:
-```javascript
-const config = {
-    GOOGLE_API_KEY: 'your-google-api-key',
-    SEARCH_ENGINE_ID: 'your-search-engine-id',
-    BASE_URL: 'https://your-domain.com'
-};
-```
+### Branding
+- **Logo**: Font Awesome icons
+- **Colors**: CSS variables untuk easy customization
+- **Typography**: Google Fonts integration
+- **Content**: Easy to update markdown sections
 
-### API Integration
-- Google Custom Search API untuk real-time data
-- Financial data providers (Alpha Vantage, Yahoo Finance)
-- News APIs untuk sentiment analysis
+### Contact Information
+- **Email**: `ics@voxia.id`
+- **WhatsApp**: `+62 851-8307-9558`
+- **Website**: `https://voxia.id/`
 
-## 🚀 Performance Optimization
+## 🌐 Browser Support
 
-- Lazy loading untuk images
-- Minified CSS dan JavaScript
-- Optimized font loading
-- Efficient DOM manipulation
-- Smooth scrolling dan animations
-
-## 🔒 Security Features
-
-- Input sanitization
-- XSS prevention
-- HTTPS enforcement
-- Secure API calls
-- Data validation
+- ✅ Chrome 60+
+- ✅ Firefox 55+
+- ✅ Safari 12+
+- ✅ Edge 79+
+- ✅ Mobile browsers
 
 ## 📱 Mobile Features
 
-- Touch-friendly interface
-- Swipe gestures untuk navigation
-- Optimized form inputs
-- Responsive tables
-- Mobile-optimized charts
+- **Touch gestures**: Swipe dan tap interactions
+- **Responsive navigation**: Mobile menu ready
+- **Optimized forms**: Touch-friendly inputs
+- **Performance**: Fast loading on mobile
+
+## 🔍 SEO Optimization
+
+- **Meta Tags**: Open Graph dan Twitter Cards
+- **Structured Data**: Schema markup ready
+- **Semantic HTML**: Proper heading structure
+- **Image Optimization**: Alt tags dan lazy loading
+- **Performance**: Core Web Vitals optimized
+
+## 📈 Analytics Ready
+
+- **Google Analytics**: Placeholder implementation
+- **Event Tracking**: User interaction tracking
+- **Performance Monitoring**: Load time tracking
+- **User Behavior**: Scroll depth tracking
+
+## 🔒 Security
+
+- **HTTPS**: Enforced on GitHub Pages
+- **XSS Protection**: Input sanitization
+- **Secure Headers**: GitHub Pages defaults
+- **No Server-side**: Static site security
 
 ## 🌟 Future Enhancements
 
-- Real-time price alerts
-- Portfolio tracking
-- Advanced charting
-- Social trading features
-- Machine learning improvements
-- Multi-language support
+- [ ] Blog section untuk trading education
+- [ ] Video testimonials
+- [ ] Interactive demo
+- [ ] Multi-language support
+- [ ] Dark mode toggle
+- [ ] Advanced animations
 
-## 📞 Support & Contact
+## 📞 Support
 
-- **Developer**: Voxia ID Team
-- **Community**: Bali Trade Community
-- **Website**: https://voxia.id/
-- **Documentation**: Available in repository
+### Contact Information
+- **Email**: [ics@voxia.id](mailto:ics@voxia.id)
+- **WhatsApp**: [+62 851-8307-9558](https://wa.me/6285183079558)
+- **Website**: [voxia.id](https://voxia.id/)
+
+### Community
+- **Bali Trade Community**: Dedicated user base
+- **Trading Education**: Resources and guides
+- **Market Analysis**: Regular updates
 
 ## 📄 License
 
-MIT License - Feel free to use and modify for your trading needs.
+MIT License - Free untuk digunakan dan dimodifikasi.
+
+## 🙏 Acknowledgments
+
+- **Voxia ID**: Development dan branding
+- **Bali Trade Community**: User feedback dan testing
+- **Google Fonts**: Typography resources
+- **Font Awesome**: Icon library
 
 ---
 
-**Disclaimer**: Aplikasi ini untuk tujuan edukasi dan informasi. Selalu lakukan due diligence sebelum membuat keputusan trading. Segala risiko trading adalah tanggung jawab pengguna.
+**Disclaimer**: Landing page ini untuk tujuan informasi dan edukasi. Aplikasi trading yang diarahkan melalui link ini adalah produk terpisah. Segala keputusan trading adalah tanggung jawab pengguna.
 
 ---
 
