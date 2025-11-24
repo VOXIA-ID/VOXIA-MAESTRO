@@ -135,19 +135,31 @@ body {
     margin-bottom: 1.5rem;
     line-height: 1.2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    word-wrap: break-word;
-    hyphens: auto;
-    overflow-wrap: break-word;
-    white-space: normal;
+    text-align: center;
     max-width: 100%;
+}
+
+.hero-title-content {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
-.hero-title span {
+.hero-title-content i {
+    font-size: 3.5rem;
+    flex-shrink: 0;
+}
+
+.hero-title-content span {
     display: inline-block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    flex: 1;
+    min-width: 0;
 }
 
 .hero-title i {
@@ -735,11 +747,24 @@ section {
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
-        word-wrap: break-word;
-        hyphens: auto;
-        white-space: normal;
-        max-width: 100%;
+        line-height: 1.3;
     }
+    
+    .hero-title-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .hero-title-content i {
+        font-size: 2.5rem;
+    }
+    
+    .hero-title-content span {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        font-size: 2.5rem;
+    }
+}
     
     .hero-subtitle {
         font-size: 1.1rem;
@@ -823,11 +848,23 @@ section {
     .hero-title {
         font-size: 1.8rem;
         line-height: 1.3;
-        word-wrap: break-word;
-        hyphens: auto;
-        white-space: normal;
-        max-width: 100%;
     }
+    
+    .hero-title-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .hero-title-content i {
+        font-size: 1.8rem;
+    }
+    
+    .hero-title-content span {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        font-size: 1.8rem;
+    }
+}
     
     section {
         padding: 3rem 0;
