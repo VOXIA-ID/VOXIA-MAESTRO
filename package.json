@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/VOXIA-ID/VOXIA-MAESTRO.git"
   },
-  "homepage": "https://voxia-id.github.io/VOXIA-MAESTRO/",
+  "homepage": "https://voxia.id/",
   "devDependencies": {
     "serve": "^14.2.1"
   },
