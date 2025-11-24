@@ -130,20 +130,24 @@ body {
 }
 
 .hero-title {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.4;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
+    margin-bottom: 2rem;
 }
 
 .hero-title i {
     display: block;
-    margin-bottom: 0.5rem;
-    font-size: 2.2rem;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #fbbf24;
+}
+
+.hero-title h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
+    padding: 0;
 }
 
 .hero-title i {
@@ -729,14 +733,13 @@ section {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero-title {
-        font-size: 1.6rem;
-        line-height: 1.4;
+    .hero-title i {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
     }
     
-    .hero-title i {
-        font-size: 1.8rem;
-        margin-bottom: 0.3rem;
+    .hero-title h2 {
+        font-size: 1.5rem;
     }
 }
     
@@ -819,14 +822,13 @@ section {
         padding: 4rem 0;
     }
     
-    .hero-title {
-        font-size: 1.4rem;
-        line-height: 1.4;
+    .hero-title i {
+        font-size: 2rem;
+        margin-bottom: 0.6rem;
     }
     
-    .hero-title i {
-        font-size: 1.6rem;
-        margin-bottom: 0.3rem;
+    .hero-title h2 {
+        font-size: 1.3rem;
     }
 }
     

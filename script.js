@@ -37,8 +37,10 @@ class TradingAssistant {
         // Add entrance animations to elements
         this.animateOnScroll();
         
-        // Add parallax effect to hero section
-        this.addParallaxEffect();
+    // Remove parallax effect - static display
+    addParallaxEffect() {
+        // Static display - no parallax
+        return;
     }
 
     toggleBackToTop() {
@@ -156,81 +158,22 @@ class TradingAssistant {
         };
     }
 
-    // Add typing effect to hero title
+    // Remove typing effect - static display
     addTypingEffect() {
-        const heroTitle = document.querySelector('.hero-title');
-        if (heroTitle) {
-            const text = heroTitle.textContent;
-            heroTitle.textContent = '';
-            heroTitle.style.borderRight = '3px solid #fbbf24';
-            
-            let index = 0;
-            const typeWriter = () => {
-                if (index < text.length) {
-                    heroTitle.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(typeWriter, 50);
-                } else {
-                    heroTitle.style.borderRight = 'none';
-                }
-            };
-            
-            setTimeout(typeWriter, 500);
-        }
+        // Static display - no animations
+        return;
     }
 
-    // Add counter animation for stats
+    // Remove counter animation - static display
     animateCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        
-        counters.forEach(counter => {
-            const target = counter.textContent;
-            const isNumber = /^\d+$/.test(target);
-            
-            if (isNumber) {
-                const targetNum = parseInt(target);
-                let current = 0;
-                const increment = targetNum / 50;
-                
-                const updateCounter = () => {
-                    if (current < targetNum) {
-                        current += increment;
-                        counter.textContent = Math.ceil(current);
-                        setTimeout(updateCounter, 30);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                updateCounter();
-            }
-        });
+        // Static display - no animations
+        return;
     }
 
-    // Add ripple effect to buttons
+    // Remove ripple effect - static buttons
     addRippleEffect() {
-        const buttons = document.querySelectorAll('.cta-primary, .cta-secondary');
-        
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
+        // Static buttons - no animations
+        return;
     }
 
     // Initialize all effects when DOM is loaded
