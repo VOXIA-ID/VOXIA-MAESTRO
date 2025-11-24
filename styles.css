@@ -130,40 +130,24 @@ body {
 }
 
 .hero-title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
-    line-height: 1.3;
+    line-height: 1.4;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
-    max-width: 100%;
-}
-
-.hero-title-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    max-width: 100%;
-}
-
-.hero-title-content i {
-    font-size: 2.8rem;
-    flex-shrink: 0;
-}
-
-.hero-title-text {
-    flex: 1;
-    min-width: 0;
-}
-
-.hero-title-text span {
-    display: block;
-    word-break: break-word;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
     overflow-wrap: anywhere;
-    max-width: 100%;
-    line-height: 1.2;
+    hyphens: auto;
+}
+
+.hero-title i {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
 }
 
 .hero-title i {
@@ -750,25 +734,14 @@ section {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2.2rem;
-        line-height: 1.3;
+        font-size: 1.8rem;
+        line-height: 1.4;
+        max-width: 95%;
     }
     
-    .hero-title-content {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .hero-title-content i {
-        font-size: 2.2rem;
-    }
-    
-    .hero-title-text span {
-        word-break: break-word;
-        overflow-wrap: anywhere;
-        font-size: 2.2rem;
-        display: block;
-        line-height: 1.2;
+    .hero-title i {
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
     }
 }
     
@@ -852,25 +825,14 @@ section {
     }
     
     .hero-title {
-        font-size: 1.6rem;
-        line-height: 1.3;
+        font-size: 1.5rem;
+        line-height: 1.4;
+        max-width: 98%;
     }
     
-    .hero-title-content {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .hero-title-content i {
-        font-size: 1.6rem;
-    }
-    
-    .hero-title-text span {
-        word-break: break-word;
-        overflow-wrap: anywhere;
-        font-size: 1.6rem;
-        display: block;
-        line-height: 1.2;
+    .hero-title i {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
     }
 }
     
