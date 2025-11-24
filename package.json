@@ -1,7 +1,7 @@
 {
   "name": "voxia-maestro",
   "version": "1.0.0",
-  "description": "Asisten Trading & Sinyal Pasar Global - Landing page untuk Bali Trade Community by Voxia ID",
+  "description": "Asisten Trading & Sinyal Pasar Global - Landing page untuk Bali Trade Community by VOXIA ID",
   "main": "index.html",
   "scripts": {
     "start": "python -m http.server 8000 || npx serve .",
@@ -21,7 +21,7 @@
     "indonesia",
     "idx"
   ],
-  "author": "Voxia ID",
+  "author": "VOXIA ID",
   "license": "MIT",
   "repository": {
     "type": "git",

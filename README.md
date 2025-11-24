@@ -1,6 +1,6 @@
 # VOXIA MAESTRO - Trading Assistant Landing Page
 
-Landing page modern untuk **Asisten Trading & Sinyal Pasar Global** yang dipersembahkan oleh **Voxia ID** untuk **Bali Trade Community**.
+Landing page modern untuk **Asisten Trading & Sinyal Pasar Global** yang dipersembahkan oleh **VOXIA ID** untuk **Bali Trade Community**.
 
 ## 🚀 Tentang Project
 
@@ -175,7 +175,7 @@ MIT License - Free untuk digunakan dan dimodifikasi.
 
 ## 🙏 Acknowledgments
 
-- **Voxia ID**: Development dan branding
+- **VOXIA ID**: Development dan branding
 - **Bali Trade Community**: User feedback dan testing
 - **Google Fonts**: Typography resources
 - **Font Awesome**: Icon library
@@ -186,4 +186,4 @@ MIT License - Free untuk digunakan dan dimodifikasi.
 
 ---
 
-*Built with ❤️ by Voxia ID for Bali Trade Community*
+*Built with ❤️ by VOXIA ID for Bali Trade Community*
