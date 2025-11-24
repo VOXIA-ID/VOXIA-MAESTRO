@@ -163,6 +163,7 @@ body {
     word-break: break-word;
     overflow-wrap: anywhere;
     max-width: 100%;
+    line-height: 1.2;
 }
 
 .hero-title i {
@@ -767,6 +768,7 @@ section {
         overflow-wrap: anywhere;
         font-size: 2.2rem;
         display: block;
+        line-height: 1.2;
     }
 }
     
@@ -868,6 +870,7 @@ section {
         overflow-wrap: anywhere;
         font-size: 1.6rem;
         display: block;
+        line-height: 1.2;
     }
 }
     
