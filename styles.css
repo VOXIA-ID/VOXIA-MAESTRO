@@ -130,10 +130,10 @@ body {
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
+    line-height: 1.3;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
     max-width: 100%;
@@ -143,23 +143,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
     max-width: 100%;
 }
 
 .hero-title-content i {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     flex-shrink: 0;
 }
 
-.hero-title-content span {
-    display: inline-block;
+.hero-title-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-title-text span {
+    display: block;
     word-break: break-word;
     overflow-wrap: anywhere;
     max-width: 100%;
-    flex: 1;
-    min-width: 0;
 }
 
 .hero-title i {
@@ -746,7 +749,7 @@ section {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         line-height: 1.3;
     }
     
@@ -756,13 +759,14 @@ section {
     }
     
     .hero-title-content i {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
-    .hero-title-content span {
+    .hero-title-text span {
         word-break: break-word;
         overflow-wrap: anywhere;
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        display: block;
     }
 }
     
@@ -846,7 +850,7 @@ section {
     }
     
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         line-height: 1.3;
     }
     
@@ -856,13 +860,14 @@ section {
     }
     
     .hero-title-content i {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
-    .hero-title-content span {
+    .hero-title-text span {
         word-break: break-word;
         overflow-wrap: anywhere;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        display: block;
     }
 }
     
