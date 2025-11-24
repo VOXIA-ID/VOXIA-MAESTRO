@@ -1,0 +1,38 @@
+{
+  "name": "trading-assistant",
+  "version": "1.0.0",
+  "description": "Asisten Trading & Sinyal Pasar Global - AI-powered trading analysis tool",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 || npx serve .",
+    "dev": "python -m http.server 8000 || npx serve . -l 8000",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "git add . && git commit -m 'Update deployment' && git push origin main"
+  },
+  "keywords": [
+    "trading",
+    "analysis",
+    "ai",
+    "forex",
+    "stocks",
+    "commodities",
+    "technical-analysis",
+    "sentiment-analysis",
+    "indonesia",
+    "idx",
+    "bali-trade-community"
+  ],
+  "author": "Voxia ID",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/trading-assistant.git"
+  },
+  "homepage": "https://username.github.io/trading-assistant",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

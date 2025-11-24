@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asisten Trading & Sinyal Pasar Global</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="brand">
+                <h1><i class="fas fa-chart-line"></i> Asisten Trading & Sinyal Pasar Global</h1>
+                <p class="subtitle">Senior Analis Teknikal & Fundamental untuk Keputusan Trading Cerdas</p>
+            </div>
+            <div class="branding">
+                <span class="powered-by">Dipersembahkan oleh <a href="https://voxia.id/" target="_blank"><strong>Voxia ID</strong></a></span>
+                <span class="for-community">untuk <strong>BALI TRADE COMMUNITY</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="input-section">
+                <h2><i class="fas fa-search"></i> Mulai Analisis Trading</h2>
+                
+                <div class="input-group">
+                    <label for="assetSymbol">Simbol Aset atau Nama Komoditas</label>
+                    <input type="text" id="assetSymbol" placeholder="Contoh: BBCA.JK, TLKM.JK, XAU/USD, EUR/USD, NVDA, Minyak Sawit (CPO), Gandum">
+                </div>
+
+                <div class="input-group">
+                    <label for="marketCategory">Kategori Pasar</label>
+                    <select id="marketCategory">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="idx">Saham Indonesia (IDX)</option>
+                        <option value="global">Saham Global (US/Asia/Eropa)</option>
+                        <option value="forex">Forex & Crypto</option>
+                        <option value="hard-commodities">Komoditas Hard (Emas/Minyak)</option>
+                        <option value="soft-commodities">Komoditas Soft (Sawit/Gandum/Jagung)</option>
+                    </select>
+                </div>
+
+                <button id="analyzeBtn" class="analyze-btn">
+                    <i class="fas fa-chart-bar"></i> Analisis Sekarang
+                </button>
+            </section>
+
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Sedang mencari data dan menganalisis...</p>
+                </div>
+            </section>
+
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="result-header">
+                    <h2 id="resultTitle">Analisis Sinyal untuk [Nama Aset]</h2>
+                    <div class="current-price">
+                        <span class="price-label">Harga Saat Ini:</span>
+                        <span id="currentPrice" class="price-value">-</span>
+                    </div>
+                </div>
+
+                <div class="indicators-table">
+                    <h3><i class="fas fa-table"></i> Indikator Teknikal</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Indikator</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RSI (Relative Strength Index)</td>
+                                <td id="rsiValue">-</td>
+                                <td id="rsiStatus">-</td>
+                            </tr>
+                            <tr>
+                                <td>MA 50 (Moving Average)</td>
+                                <td id="ma50Value">-</td>
+                                <td id="ma50Status">-</td>
+                            </tr>
+                            <tr>
+                                <td>MA 200 (Moving Average)</td>
+                                <td id="ma200Value">-</td>
+                                <td id="ma200Status">-</td>
+                            </tr>
+                            <tr>
+                                <td>MACD</td>
+                                <td id="macdValue">-</td>
+                                <td id="macdStatus">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="verdict-section">
+                    <h3><i class="fas fa-gavel"></i> KEPUTUSAN (VERDICT)</h3>
+                    <div id="verdict" class="verdict">-</div>
+                </div>
+
+                <div class="analysis-section">
+                    <h3><i class="fas fa-brain"></i> Alasan Analisis</h3>
+                    <div id="analysisText" class="analysis-text">
+                        Analisis sedang diproses...
+                    </div>
+                </div>
+
+                <div class="news-section">
+                    <h3><i class="fas fa-newspaper"></i> Sentimen Berita Terkini</h3>
+                    <div id="newsSentiment" class="news-sentiment">
+                        <ul id="newsList">
+                            <!-- News items will be inserted here -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="additional-analysis">
+                    <h3><i class="fas fa-chart-pie"></i> Analisis Lanjutan</h3>
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h4>Tingkat Risiko</h4>
+                            <div id="riskLevel" class="risk-indicator">-</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Keyakinan Analisis</h4>
+                            <div id="confidenceLevel" class="confidence-indicator">-</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Horizon Waktu</h4>
+                            <div id="timeHorizon" class="time-horizon-indicator">-</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h4>Skor Analisis</h4>
+                            <div id="analysisScore" class="score-indicator">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations-section">
+                    <h3><i class="fas fa-lightbulb"></i> Rekomendasi Trading</h3>
+                    <div id="recommendationsList" class="recommendations-list">
+                        <!-- Recommendations will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="disclaimer">
+                    <p><strong>Disclaimer:</strong> Analisis ini dihasilkan oleh AI berdasarkan data pencarian web. Segala keputusan trading adalah tanggung jawab pengguna.</p>
+                </div>
+            </section>
+
+            <section class="app-link-section">
+                <div class="app-link-card">
+                    <h3><i class="fas fa-external-link-alt"></i> Aplikasi Trading Lengkap</h3>
+                    <p>Dapatkan pengalaman trading yang lebih lengkap dengan aplikasi kami:</p>
+                    <a href="https://opal.google/_app/?flow=drive:/1N7AxRXQ-PjWk623TmTcl_4HxXuHf4zMI&shared&mode=app" target="_blank" class="app-link-btn">
+                        <i class="fas fa-rocket"></i> Buka Aplikasi Trading
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 BALI TRADE COMMUNITY - Powered by <a href="https://voxia.id/" target="_blank">Voxia ID</a></p>
+                <p>All rights reserved. Trading involves risk, trade wisely.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="search-api.js"></script>
+    <script src="ai-analyzer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
